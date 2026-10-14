@@ -11,11 +11,12 @@ pacman -Syu --noconfirm \
 	libxcursor        \
 	libxi             \
 	libxkbcommon      \
-	libxkbcommon-x11
+	libxkbcommon-x11  \
+	vulkan-icd-loader
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
-get-debloated-pkgs --add-opengl --prefer-nano
+get-debloated-pkgs --add-mesa --prefer-nano
 
 # Comment this out if you need an AUR package
 make-aur-package zenity-rs-bin
