@@ -1,0 +1,16 @@
+#!/bin/sh
+# Mesa's Haswell (Intel Gen7.5) Vulkan support is incomplete and leaves wgpu
+# hanging, so use the bundled OpenGL renderer there unless the user chose one.
+
+if [ -z "${WGPU_BACKEND:-}" ]; then
+	for dev in /sys/class/drm/card*/device; do
+		[ -r "$dev/vendor" ] && [ -r "$dev/device" ] || continue
+		[ "$(cat "$dev/vendor")" = "0x8086" ] || continue
+		case "$(cat "$dev/device")" in
+			0x04??|0x0a??|0x0c??|0x0d??)
+				export WGPU_BACKEND=gl
+				break
+				;;
+		esac
+	done
+fi

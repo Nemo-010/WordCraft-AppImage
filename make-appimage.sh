@@ -14,6 +14,9 @@ export DEPLOY_OPENGL=1
 # Deploy dependencies
 quick-sharun /usr/bin/wordcraft /usr/bin/wordcraft-cli /usr/bin/zenity
 
+# Haswell Intel Vulkan is incomplete and leaves wgpu hanging, so use GL there (issue #8)
+cp -v ./hooks/15-wgpu-gl-haswell.hook ./AppDir/bin
+
 # Turn AppDir into AppImage
 quick-sharun --make-appimage
 
